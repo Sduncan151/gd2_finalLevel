@@ -45,10 +45,26 @@ public class PlayerController : MonoBehaviour
         {
             Fire();
         }
-        // if(Input.GetKeyDown(KeyCode.Q))
-        // {
-        //     Potion();
-        // }
+
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            if(potionAmount > 0)
+            {
+                potionAmount -= 1;
+                potionAmountText.text = "Health Potions " + potionAmount.ToString();
+                hp.ChangeHealth(10);
+            }
+        }
+
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            if(potionManaAmount > 0)
+            {
+                potionManaAmount -= 1;
+                potionManaAmountText.text = "Mana Potions " + potionManaAmount.ToString();
+                hp.ChangeMana(5);
+            }
+        }
     }
 
     void Fire()
@@ -93,13 +109,13 @@ public class PlayerController : MonoBehaviour
         if(other.gameObject.CompareTag("AddHealth"))
         {
             potionAmount += 1;
-            potionAmountText.text = potionAmount.ToString();
+            potionAmountText.text = "Health Potions " + potionAmount.ToString();
             Destroy(other.gameObject);
         }
          if(other.gameObject.CompareTag("AddMana"))
         {
             potionManaAmount += 1;
-            potionManaAmountText.text = potionManaAmount.ToString();
+            potionManaAmountText.text = "Mana Potions " + potionManaAmount.ToString();
             Destroy(other.gameObject);
         }
     }

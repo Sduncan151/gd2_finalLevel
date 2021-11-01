@@ -21,6 +21,13 @@ public class PlayerSaveAndLoad : MonoBehaviour
         PlayerPrefs.SetFloat("posX", transform.position.x);
         PlayerPrefs.SetFloat("posY", transform.position.y);
         PlayerPrefs.SetFloat("posZ", transform.position.z);
+        Debug.Log("playerPosition = " + this.transform.position);
+
+        Vector3 saveLocation = new Vector3(PlayerPrefs.GetFloat("posX"),
+                                           PlayerPrefs.GetFloat("posY"),
+                                           PlayerPrefs.GetFloat("posZ"));
+
+        Debug.DrawLine(saveLocation, saveLocation + Vector3.up * 50, Color.white, 1000);
     }
 
     public void Load()
