@@ -10,11 +10,13 @@ public class PlayerSaveAndLoad : MonoBehaviour
     {
         hp = GetComponent<PlayerHealth>();
         Debug.Log("Health = " + hp.health);
+        Debug.Log("Mana = " + hp.mana);
     }
 
     public void Save()
     {
         PlayerPrefs.SetInt("Health", hp.health);
+        PlayerPrefs.SetInt("Mana", hp.mana);
 
         PlayerPrefs.SetFloat("posX", transform.position.x);
         PlayerPrefs.SetFloat("posY", transform.position.y);
@@ -24,6 +26,7 @@ public class PlayerSaveAndLoad : MonoBehaviour
     public void Load()
     {
         hp.health = PlayerPrefs.GetInt("Health", 100);
+        hp.mana = PlayerPrefs.GetInt("Mana", 100);
 
         Vector3 newPosition;
 

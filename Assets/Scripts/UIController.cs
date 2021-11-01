@@ -12,11 +12,24 @@ public class UIController : MonoBehaviour
     [SerializeField]
     private Slider healthSlider, manaSlider, xpSlider;
 
+    [SerializeField]
+    private Text xpLevelText;
+    private int xpLevel = 1;
+
+    // [SerializeField]
+    // private Text potionAmountText;
+    // private int potionAmount = 0;
+
     // getters and setters
 
     //setter function
     public void SetHealthSlider(int amount)
     {
+        // if(other.gameObject.CompareTag("AddHealth"))
+        // {
+        //     potionAmount += 1;
+        //     potionAmountText.text = potionAmount.ToString();
+        
         // make sure no one is sending bad data...
         if(amount < 0)
         {
@@ -47,6 +60,23 @@ public class UIController : MonoBehaviour
 
     public void SetXPSlider(int amount)
     {
+        if(amount >+ xpSlider.maxValue)
+        {
+            xpSlider.minValue = xpSlider.maxValue;
+            xpSlider.maxValue *= 2;
+            xpLevel += 1;
+            xpLevelText.text = xpLevel.ToString();
+        }
         xpSlider.value = amount;
     }
+
+    public void SetXPLevelText(int level)
+    {
+        xpLevelText.text = level.ToString();
+    }
+
+    // public void SetPotionAmountText(int amount)
+    // {
+    //     potionAmountText.text = amount.ToString();
+    // }
 }

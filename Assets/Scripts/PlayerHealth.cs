@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -11,6 +12,10 @@ public class PlayerHealth : MonoBehaviour
 
     public float regenTimer = 1, manaRegenInterval = 1;
 
+    // private Text potionAmountText;
+
+    // private int potionAmount = 0;
+
     PlayerSaveAndLoad save;
 
     // Start is called before the first frame update
@@ -19,6 +24,7 @@ public class PlayerHealth : MonoBehaviour
         ui.SetHealthSlider(health);
         ui.SetManaSlider(mana);
         ui.SetXPSlider(xp);
+        // ui.SetPotionAmountText(potionAmount);
         save = GetComponent<PlayerSaveAndLoad>();
     }
 
@@ -73,10 +79,22 @@ public class PlayerHealth : MonoBehaviour
         return mana;
     }
 
+    // public int GetPotion()
+    // {
+    //     return potionAmount;
+    // }
+
     public void ChangeMana(int byAmount)
     {
         mana += byAmount;
         if(mana > 100) mana = 100;
         ui.SetHealthSlider(health);
     }
+
+    // public void ChangePotionAmount(int byAmount)
+    // {
+    //     potionAmount += byAmount;
+    //     if(potionAmount > 8) potionAmount = 8;
+    //     ui.SetPotionAmountText(potionAmount);
+    // }
 }
