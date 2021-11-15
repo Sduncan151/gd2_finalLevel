@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class Patrol : MonoBehaviour
 {
     public Animator anim;
-    public Transform[] points; // the array of patrol points
+    // public Transform[] points; // the array of patrol points
     public Transform player;
     public int health = 10;
 
@@ -29,35 +29,40 @@ public class Patrol : MonoBehaviour
 
         anim.SetInteger("Health", health);
 
+        if(player == null)
+        {
+            player = GameObject.Find("RigidBodyFPSController").transform;
+        }
+
         // keep it from stopping at each patrol point
         // agent.autoBreaking = false;
 
-        StartCoroutine(GoToNextPoint());
+        // StartCoroutine(GoToNextPoint());
     }
 
-    IEnumerator GoToNextPoint()
-    {
-        Debug.Log("Starting GoToNextPoint");
-        // if no points exist
-        if(points.Length == 0)
-        {
-           yield return new WaitForEndOfFrame();;   // exit this method()
-        }
+    // IEnumerator GoToNextPoint()
+    // {
+    //     Debug.Log("Starting GoToNextPoint");
+    //     // if no points exist
+    //     if(points.Length == 0)
+    //     {
+    //        yield return new WaitForEndOfFrame();;   // exit this method()
+    //     }
 
-        //wait for 2 seconds
-        Debug.Log("Starting ToWait");
-        waiting = true;
-        agent.destination = this.transform.position;
-        yield return new WaitForSeconds(2);
-        waiting = false;
+    //     //wait for 2 seconds
+    //     Debug.Log("Starting ToWait");
+    //     waiting = true;
+    //     agent.destination = this.transform.position;
+    //     yield return new WaitForSeconds(2);
+    //     waiting = false;
 
-        // Set the agent to go to the currently selected destination
-        agent.destination = points[destPoint].position;
+    //     // Set the agent to go to the currently selected destination
+    //     agent.destination = points[destPoint].position;
 
-        // choose the next point in the array as the destination
-        // cycling to the start if necessary.
-        destPoint = (destPoint + 1) % points.Length;
-    }
+    //     // choose the next point in the array as the destination
+    //     // cycling to the start if necessary.
+    //     destPoint = (destPoint + 1) % points.Length;
+    // }
 
     // Update is called once per frame
     void Update()
@@ -95,7 +100,7 @@ public class Patrol : MonoBehaviour
             Debug.Log("Not Following Player");
             if(!agent.pathPending && agent.remainingDistance < 0.5f && !waiting)
             {
-                StartCoroutine(GoToNextPoint());
+                // StartCoroutine(GoToNextPoint());
             }   
         }
         else
@@ -106,6 +111,7 @@ public class Patrol : MonoBehaviour
         if(health <= 0)
         {    
             agent.destination = this.transform.position;
+            Destroy(agent);
             Destroy(gameObject, 2);
         }  
     }
