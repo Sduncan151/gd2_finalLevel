@@ -4,16 +4,26 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    public Transform anim;
-    public Transform player;
+    Animator anim;
 
-    private bool open = false;
+    void Start()
+    {
+        anim = this.GetComponent<Animator>();
+    }
 
     void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("Player"))
         {
-            open = true;
+            anim.SetTrigger("OpenDoor");
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject.CompareTag("Player"))
+        {
+            anim.SetTrigger("CloseDoor");
         }
     }
 }
