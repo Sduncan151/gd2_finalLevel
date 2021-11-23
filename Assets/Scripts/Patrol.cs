@@ -13,7 +13,7 @@ public class Patrol : MonoBehaviour
     public Transform target;
     public float detectionDistance = 10f;
 
-    private int destPoint = 0;  // the currant point to go to
+    // private int destPoint = 0;  // the currant point to go to
     private NavMeshAgent agent;
 
     private bool waiting = false;
