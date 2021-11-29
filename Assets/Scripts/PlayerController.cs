@@ -29,6 +29,9 @@ public class PlayerController : MonoBehaviour
     private Text potionManaAmountText;
     private int potionManaAmount = 0;
 
+    [SerializeField]
+    public ItemController item;
+
     void Start()
     {
         if(hp == null)
@@ -65,11 +68,20 @@ public class PlayerController : MonoBehaviour
                 hp.ChangeMana(5);
             }
         }
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            Debug.Log("R pressed");
+            if(item != null)
+            {
+                item.Drop();
+                item = null;
+            }
+        }
     }
 
     void Fire()
     {
-        if(hp.GetMana() > 5)
+        if(hp.GetMana() > 5 && item == null)
         {
         hp.ChangeMana(-5);
         Rigidbody copy = Instantiate(magicBullet, hand.position, hand.rotation);
@@ -117,6 +129,30 @@ public class PlayerController : MonoBehaviour
             potionManaAmount += 1;
             potionManaAmountText.text = "Mana Potions " + potionManaAmount.ToString();
             Destroy(other.gameObject);
+        }
+
+        Debug.Log("I've hit " + other.gameObject.name);
+        if(other.gameObject.CompareTag("Pickupable")) 
+        {
+            Debug.Log("I can pick this up");
+            if(item == null) 
+            {
+                Debug.Log("Let's try to pick this up.");
+                // we can pick up the object!
+                item = other.gameObject.GetComponent<ItemController>();
+                // move the object to our hand.
+                other.gameObject.transform.position = hand.position;
+                // make the object a child of the hand so it follows.
+                other.gameObject.transform.SetParent(hand);
+                // make the object face the same direction as the hand.
+                other.gameObject.transform.rotation = hand.rotation;
+                // keep the gun from falling
+                // other.GetComponent<Rigidbody>().isKinematic = true;
+            }
+            else 
+            {
+                Debug.Log("Already holding something.");
+            }
         }
     }
 }
