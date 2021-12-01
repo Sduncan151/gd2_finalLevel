@@ -88,7 +88,7 @@ public class PlayerHealth : MonoBehaviour
     {
         mana += byAmount;
         if(mana > 100) mana = 100;
-        ui.SetHealthSlider(health);
+        ui.SetManaSlider(mana);
     }
 
     // public void ChangePotionAmount(int byAmount)

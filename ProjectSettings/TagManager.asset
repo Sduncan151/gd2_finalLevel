@@ -13,6 +13,7 @@ TagManager:
   - AddMana
   - Point
   - Pickupable
+  - bgm
   layers:
   - Default
   - TransparentFX
